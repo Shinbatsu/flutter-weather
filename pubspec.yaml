@@ -1,0 +1,59 @@
+name: weather
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+    sdk: ">=2.16.2 <3.0.0"
+
+dependencies:
+    flutter:
+        sdk: flutter
+
+    flutter_svg: ^0.20.0-nullsafety.3
+    fl_chart: ^0.50.1
+    http: ^0.13.4
+    intl: ^0.17.0
+    flutter_settings_screens: ^0.3.2-null-safety
+    connectivity_plus: ^1.0.6
+    hive: ^2.2.1
+    flutter_local_notifications: ^9.5.3+1
+    hive_flutter: ^1.1.0
+    timezone: ^0.8.0
+    hive_generator: ^1.1.3
+    flutter_dotenv: ^5.0.2
+
+dev_dependencies:
+    flutter_test:
+        sdk: flutter
+    flutter_native_splash: ^2.0.1+1
+    flutter_launcher_icons_maker: "^0.10.1"
+    build_runner: ^1.3.1
+    flutter_lints: ^1.0.0
+flutter_native_splash:
+    image: assets/phone.png
+    color: "#ffffff"
+flutter_icons:
+    android: true
+    ios: true
+    macos: true
+    windows: true
+    web: true
+    image_path: "assets/phone.png"
+
+flutter:
+    uses-material-design: true
+
+    assets:
+        - .env
+        - assets/images/
+        - assets/icons/
+
+    fonts:
+        - family: Montserrat
+          fonts:
+              - asset: assets/fonts/montserrat/Montserrat-Regular.ttf
+              - asset: assets/fonts/montserrat/Montserrat-Bold.ttf
+              - asset: assets/fonts/montserrat/Montserrat-Light.ttf
