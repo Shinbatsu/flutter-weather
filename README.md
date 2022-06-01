@@ -1,6 +1,6 @@
-# weather
+# Tenki Weather App
 
-A new Flutter project.
+A new Flutter project for searching weather anywhere.
 
 ## Getting Started
 
