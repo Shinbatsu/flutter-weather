@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:weather/components/components.dart';
 import 'package:weather/size_config.dart';
 import '../components/components.dart';
-import 'package:weather/models/weather_models.dart';
 import 'package:weather/types/types.dart';
 import 'package:intl/intl.dart';
+import 'package:weather/models/weather_service.dart';
 
 class InfoScreen extends StatefulWidget {
   final String appBackground;

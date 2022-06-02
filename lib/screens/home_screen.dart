@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather/components/components.dart';
-
-import 'package:weather/models/combined.dart';
+import 'package:weather/models/weather_service.dart';
 import 'package:weather/size_config.dart';
-import 'package:weather/models/weather_models.dart';
+import 'package:weather/utils/utils.dart';
 import 'dart:async';
 import 'package:weather/types/types.dart';
 import 'home_screen_tools.dart';

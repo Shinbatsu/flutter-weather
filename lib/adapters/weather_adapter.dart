@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'weather_model.g.dart';
+part 'weather_adapter.g.dart';
  
  @HiveType(typeId: 4)
 class Weather {

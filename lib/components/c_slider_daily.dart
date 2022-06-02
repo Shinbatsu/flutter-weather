@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:weather/components/utils/string_constants.dart';
-import 'components.dart';
 import 'package:weather/size_config.dart';
+
+import 'package:weather/constants.dart';
+import 'package:weather/components/components.dart';
 import 'package:weather/types/types.dart';
 
 class SliderDailyComponent extends StatelessWidget {
@@ -10,17 +11,14 @@ class SliderDailyComponent extends StatelessWidget {
     required this.data,
     Key? key,
   }) : super(key: key);
-  int getDay() {
-    return -1 + DateTime.now().day;
-  }
 
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now().toUtc().toLocal();
-
     final growableList = List<int>.generate(
         6, (int index) => (DateTime.now().add(Duration(days: index)).day),
         growable: true);
+
     SizeConfig().init(context);
     return Expanded(
         child: ListView.separated(
@@ -28,7 +26,7 @@ class SliderDailyComponent extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       separatorBuilder: (context, index) => VerticalDivider(
         color: Colors.transparent,
-        width: getProportionateScreenWidth(10),
+        width: getProportionateScreenWidth(getPadding()),
       ),
       itemCount: data.length,
       itemBuilder: (context, index) {
@@ -44,7 +42,7 @@ class SliderDailyComponent extends StatelessWidget {
               child: Card(
                 color: Colors.black.withOpacity(0.2),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(getPaddingX2()),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +61,7 @@ class SliderDailyComponent extends StatelessWidget {
                         ]),
                     IconComponent(data[index][1] + '.svg',
                         color: Colors.white,
-                        size: 40,
+                        size: 45,
                         padding: const [0, 0, 0, 0]),
                     SizedBox(height: 25),
                     Text(Gradus(value: data[index][0]).asString(),

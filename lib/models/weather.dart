@@ -1,20 +1,3 @@
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
-Future<NextWeather> fetchNextWeather(
-    {dynamic lat = 55.7522, dynamic lon = 37.6156}) async {
-  final response = await http.get(Uri.parse(
-      'https://api.openweathermap.org/data/2.5/onecall?&exclude=&appid=521cf9ed7cda5e108034814bc98a51d7&lat=' +
-          lat.toString() +
-          '&lon=' +
-          lon.toString()));
-  if (response.statusCode == 200) {
-    return NextWeather.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to load');
-  }
-}
-
 class NextWeather {
   final List<List<dynamic>> daily;
   final List<List<dynamic>> hourly;

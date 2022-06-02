@@ -1,6 +1,6 @@
-import 'package:weather/models/weather_models.dart';
+import 'package:weather/models/weather_service.dart';
 import 'package:hive/hive.dart';
-import 'package:weather/custom/weather_model.dart';
+import 'package:weather/adapters/weather_adapter.dart';
 
 Future<NextWeather> getWeatherFromStorage() async {
   var box = await Hive.openBox('Weathers');
@@ -49,7 +49,7 @@ void saveWeather(String city, NextWeather weather) async {
   await box.put('latestCity', city);
 }
 
-Future<String> getCityFromStorage() async {
+Future<String?> getCityFromStorage() async {
   var box = await Hive.openBox('Weathers');
   var storageCity = box.get('latestCity',defaultValue:null);
   return storageCity;
