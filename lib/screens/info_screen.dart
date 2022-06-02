@@ -187,7 +187,7 @@ class _InfoScreenState extends State<InfoScreen> {
               } else if (fetched.hasError) {
                 return Center(child: Text('${fetched.error}'));
               }
-              return const CircularProgressIndicator();
+              return Text('');
             },
           ),
         ],

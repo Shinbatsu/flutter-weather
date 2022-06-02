@@ -53,6 +53,8 @@ var ruEnDict = {
   'Введите название города': 'Enter the city name',
   'Например: Москва': 'Example: Rome',
   'Узнать погоду!': 'Check weather!',
+  'Город c названием': 'City with name',
+  'не найден': 'not found',
   'Общие Настройки': 'Common Settings',
   'Сохранять Последнюю Сессию': 'Save Last Session',
   'Присылать Уведомления': 'Send Notifications',

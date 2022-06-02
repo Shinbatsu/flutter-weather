@@ -107,11 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       : Text('')
                 ]);
               } else if (fetched.hasError) {
-                return Center(
-                    child: Text(
-                  'Город не найден :<',
-                  style: TextStyle(fontSize: 40),
-                ));
+                return CityNotFound(city);
               }
               return const CircularProgressIndicator();
             },
