@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:weather/components/components.dart';
 import 'package:weather/models/weather_service.dart';
 import 'package:weather/size_config.dart';
-import 'package:weather/utils/utils.dart';
 import 'dart:async';
-import 'package:weather/types/types.dart';
 import 'home_screen_tools.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+import 'package:hive/hive.dart';
 
 class HomeScreen extends StatefulWidget {
   final String appBackground;
@@ -18,11 +17,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late Future<NextWeather?> sevenDays;
-  late String? city;
+  late String city;
   String defaultCity = 'Королёв';
-
-  @override
-  void initState() {
+  void initData() {
     city = defaultCity;
     bool loadLastSession = Settings.getValue<bool>('key-save_history', true);
     if (loadLastSession) {
@@ -33,28 +30,44 @@ class _HomeScreenState extends State<HomeScreen> {
       });
       sevenDays = getWeatherFromStorage();
     } else {
-      sevenDays = fetchAll(city);
+      sevenDays = fetchWeatherByName(city);
     }
+  }
+
+  @override
+  void initState() {
+    initData();
     super.initState();
   }
 
   void sendRequest() async {
     String? res = await openDialog(context: context);
-    if (res == null) {
-      return;
-    } else if (res.length < 4) {
+    if (res == null || res.length < 4) {
       return;
     } else {
-      city = res.toCapitalize();
-      sevenDays = fetchAll(res);
+      setState(() {
+        city = res;
+        sevenDays = fetchWeatherByName(res);
+      });
+    }
+  }
+
+  void syncSettings() async {
+    var box = await Hive.openBox('Storage');
+    bool value = box.get('sync');
+    if (value == false) {
+      box.put('sync', true);
       setState(() {});
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    Timer.periodic(Duration(seconds: 10), (Timer t) {
-      syncSettings(setState);
+    Timer.periodic(Duration(seconds: 5), (Timer t) {
+      syncSettings();
+    });
+    Timer.periodic(Duration(minutes: 10), (Timer t) {
+      sevenDays = fetchWeatherByName(city);
     });
     SizeConfig().init(context);
     return Scaffold(
@@ -75,16 +88,14 @@ class _HomeScreenState extends State<HomeScreen> {
             future: sevenDays,
             builder: (context, fetched) {
               if (fetched.hasData) {
-                saveWeather(city!, fetched.data!);
+                saveResponse(city, fetched.data!);
                 return Column(children: [
                   Flexible(
                     child: HomeInfoComponent(
-                        city: city!,
-                        temp: Gradus(value: fetched.data!.temp).asString(),
-                        tempMin:
-                            Gradus(value: fetched.data!.tempMin).asString(),
-                        tempMax:
-                            Gradus(value: fetched.data!.tempMax).asString(),
+                        city: city,
+                        temperature: fetched.data!.temp,
+                        temperatureMin: fetched.data!.tempMin,
+                        temperatureMax: fetched.data!.tempMax,
                         weatherType: fetched.data!.weatherType),
                   ),
                   SizedBox(height: getPadding() * 6),

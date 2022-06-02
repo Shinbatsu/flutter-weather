@@ -3,14 +3,15 @@ import 'services/notifyer.dart';
 import 'package:weather/constants.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> initSubsystem() async {
   WidgetsFlutterBinding.ensureInitialized();
-  NotificationService().initNotification();
+  await dotenv.load(fileName: ".env");
+  await NotificationService().initNotification();
   await Settings.init(
     cacheProvider: SharePreferenceCache(),
   );
-  WidgetsFlutterBinding.ensureInitialized();
 }
 
 List<dynamic> createTheme() {

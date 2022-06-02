@@ -11,7 +11,12 @@ class SliderDailyComponent extends StatelessWidget {
     required this.data,
     Key? key,
   }) : super(key: key);
+  String getWeekDay(weekday, offset) {
+    return Translated(weekDaysRu[((weekday - 1 + offset) % 7 + 1)]).translate();
+  }
 
+  //Translated(weekDaysRu[((now.weekday - 1 + index) % 7 + 1)])
+  //    .translate(),
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now().toUtc().toLocal();
@@ -22,6 +27,8 @@ class SliderDailyComponent extends StatelessWidget {
     SizeConfig().init(context);
     return Expanded(
         child: ListView.separated(
+      padding: EdgeInsets.symmetric(
+          horizontal: getProportionateScreenWidth(getPadding())),
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
       separatorBuilder: (context, index) => VerticalDivider(
@@ -33,8 +40,7 @@ class SliderDailyComponent extends StatelessWidget {
         return Column(
           children: [
             ParagraphText(
-              Translated(weekDaysRu[((now.weekday - 1 + index) % 7 + 1)])
-                  .translate(),
+              getWeekDay(now.weekday, index),
             ),
             SizedBox(
               width: getProportionateScreenWidth(100),

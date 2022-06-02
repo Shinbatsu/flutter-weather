@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather/types/translated_text.dart';
 
 Future openDialog({context}) async {
   TextEditingController controller = TextEditingController();
@@ -11,8 +12,7 @@ Future openDialog({context}) async {
             borderRadius: BorderRadius.all(Radius.circular(20.0))),
         backgroundColor: Theme.of(context).primaryColor.withOpacity(0.8),
         title: Text(
-          'Введите название города',
-          style: TextStyle(color: Colors.white),
+          Translated('Введите название города').translate(),
         ),
         content: TextField(
           controller: controller,
@@ -20,7 +20,7 @@ Future openDialog({context}) async {
           style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             fillColor: Colors.white,
-            hintText: 'Москва',
+            hintText: Translated('Например: Москва').translate(),
             hintStyle: TextStyle(color: Colors.grey),
           ),
         ),
@@ -31,9 +31,9 @@ Future openDialog({context}) async {
               TextButton(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
-                        Theme.of(context).primaryColorLight)),
+                        Theme.of(context).primaryColorDark.withOpacity(0.6))),
                 child: Text(
-                  'Узнать погоду',
+                  Translated('Узнать погоду!').translate(),
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {

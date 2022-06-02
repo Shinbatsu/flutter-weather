@@ -25,7 +25,7 @@ Future<NextWeather> getWeatherFromStorage() async {
   );
 }
 
-void saveWeather(String city, NextWeather weather) async {
+void saveResponse(String city, NextWeather weather) async {
   Weather savedWeather = Weather(
     daily: weather.daily,
     hourly: weather.hourly,
@@ -55,11 +55,3 @@ Future<String?> getCityFromStorage() async {
   return storageCity;
 }
 
-void syncSettings(callback) async {
-  var box = await Hive.openBox('Storage');
-  bool value = box.get('sync');
-  if (value == false) {
-    box.put('sync', true);
-    callback(() {});
-  }
-}

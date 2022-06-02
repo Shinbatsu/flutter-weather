@@ -94,16 +94,21 @@ class AboutScreen extends StatelessWidget {
             ),
           ],
         ),
-        Center(child: FloatingActionButton(onPressed: () async {
-          await NotificationService().showNotification(
-              id: 0,
-              title: 'Погода ',
-              body: 'Простая демонстрация сервиса уведомлений :)');
-          //Timer.periodic(Duration(seconds: 4), (Timer t) async {
-          //  await NotificationService().showNotification(
-          //      id: 0, title: 'Bobob', body: 'sadjhajshdajhjasjhdwe');
-          //});
-        }))
+        Container(
+            alignment: Alignment.bottomLeft,
+            padding: EdgeInsets.only(left: 30, bottom: 30),
+            child: FloatingActionButton(
+                backgroundColor: Theme.of(context).primaryColor,
+                child: Icon(
+                  Icons.message,
+                  color: Colors.white,
+                ),
+                onPressed: () async {
+                  await NotificationService().showNotification(
+                      id: 0,
+                      title: 'Tenki Погода',
+                      body: 'Простая демонстрация сервиса уведомлений :)');
+                }))
       ]),
     );
   }

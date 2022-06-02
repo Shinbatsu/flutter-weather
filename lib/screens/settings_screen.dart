@@ -24,6 +24,46 @@ void makeChange() async {
 class _SettingsScreenState extends State<SettingsScreen> {
   String data = '';
   bool isShowModal = true;
+  void showModal() {
+    makeChange();
+    if (isShowModal) {
+      setState(() {
+        isShowModal = false;
+      });
+      showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: 200,
+            color: Theme.of(context).primaryColor,
+            child: Container(
+              padding: EdgeInsets.all(30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(Translated('Предупреждение').translate(),
+                      style: TextStyle(fontFamily: 'Roboto')),
+                  Text(
+                      '${Translated("Некоторые настройки вступят в силу только после перезагрузки").translate()}!',
+                      style: TextStyle(fontFamily: 'Roboto')),
+                  TextButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context).primaryColorLight)),
+                    child: Text(Translated('Закрыть').translate(),
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: 'Roboto')),
+                    onPressed: () => Navigator.pop(context),
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,18 +93,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         child: Column(
                           children: [
                             SwitchSettingsTile(
-                              title: Translated('Сохранять Последнюю Сессию')
-                                  .translate(),
+                              title:
+                                  Translated('Сохранять Последнюю Сессию').translate(),
                               settingKey: "key-save_history",
-                              onChange: (value) => showModal(context),
-                              defaultValue: true,
+                              onChange: (value) => showModal(),
                             ),
                             SwitchSettingsTile(
                               title: Translated('Присылать Уведомления')
                                   .translate(),
                               settingKey: "key-notifications",
                               defaultValue: true,
-                              onChange: (value) => showModal(context),
+                              onChange: (value) => showModal(),
                             ),
                           ],
                         ),
@@ -85,8 +124,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             0: '${Translated("Градус Фаренгейта").translate()} (°F)',
                             1: '${Translated("Градус Цельсия").translate()} (°C)',
                           },
-                          selected: 1,
-                          onChange: (value) => showModal(context),
+                          selected: 0,
+                          onChange: (value) => showModal(),
                         ),
                       )
                     ]),
@@ -99,7 +138,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         child: CheckboxSettingsTile(
                           settingKey: 'key-static_background',
                           title: Translated('Статический Фон').translate(),
-                          onChange: (value) => showModal(context),
+                          onChange: (value) => showModal(),
                           childrenIfEnabled: <Widget>[
                             DropDownSettingsTile<int>(
                               title: Translated('№ :').translate(),
@@ -120,7 +159,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 12: 'Before Midnight',
                               },
                               selected: 0,
-                              onChange: (value) => showModal(context),
+                              onChange: (value) => showModal(),
                             ),
                           ],
                         ),
@@ -139,7 +178,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               1: 'English',
                             },
                             selected: 0,
-                            onChange: (value) => showModal(context),
+                            onChange: (value) => showModal(),
                           ))
                     ]),
               ],

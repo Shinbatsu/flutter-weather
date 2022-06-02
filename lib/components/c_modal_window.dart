@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:weather/types/translated_text.dart';
+import 'package:hive/hive.dart';
+
+void makeChange() async {
+  var box = await Hive.openBox('Storage');
+  box.put('sync', false);
+}
 
 void showModal(BuildContext ctx) {
+  makeChange();
   showModalBottomSheet<void>(
     context: ctx,
     builder: (BuildContext context) {

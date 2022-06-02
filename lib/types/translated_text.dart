@@ -13,9 +13,6 @@ class Translated {
 
   String translate() {
     int language = Settings.getValue<int>('key-lang', 0);
-    //if (text == 'Clouds') {
-    //  return 'Облачно';
-    //}
     if (language == 0) {
       if (isRussianWord(text)) {
         return text;
@@ -53,6 +50,9 @@ var ruEnDict = {
   'Октябрь': 'October',
   'Ноябрь': 'November',
   'Декабрь': 'December',
+  'Введите название города': 'Enter the city name',
+  'Например: Москва': 'Example: Rome',
+  'Узнать погоду!': 'Check weather!',
   'Общие Настройки': 'Common Settings',
   'Сохранять Последнюю Сессию': 'Save Last Session',
   'Присылать Уведомления': 'Send Notifications',
