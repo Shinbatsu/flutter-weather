@@ -6,9 +6,9 @@ import 'package:weather/components/components.dart';
 import 'package:weather/types/types.dart';
 
 class SliderDailyComponent extends StatelessWidget {
-  final List<List<dynamic>> data;
+  final List<List<dynamic>> temps;
   const SliderDailyComponent({
-    required this.data,
+    required this.temps,
     Key? key,
   }) : super(key: key);
   String getWeekDay(weekday, offset) {
@@ -35,7 +35,7 @@ class SliderDailyComponent extends StatelessWidget {
         color: Colors.transparent,
         width: getProportionateScreenWidth(getPadding()),
       ),
-      itemCount: data.length,
+      itemCount: temps.length,
       itemBuilder: (context, index) {
         return Column(
           children: [
@@ -55,22 +55,26 @@ class SliderDailyComponent extends StatelessWidget {
                   children: [
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: const [
-                          IconComponent(
-                            'snowflake.svg',
-                            size: 20,
-                            color: Color(0xFFFA3E3E),
-                          ),
+                        children: [
+                          temps[index][3] > 45
+                              ? IconComponent(
+                                  'droplets.svg',
+                                  size: 20,
+                                  color: Color(0xFF158AFF),
+                                )
+                              : Text(''),
                           SizedBox(width: 10),
-                          IconComponent('wind.svg',
-                              size: 20, color: Color(0xFFFA3E3E))
+                          temps[index][2] > 9
+                              ? IconComponent('wind.svg',
+                                  size: 20, color: Color(0xFFEACC44))
+                              : Text('')
                         ]),
-                    IconComponent(data[index][1] + '.svg',
+                    IconComponent(temps[index][1] + '.svg',
                         color: Colors.white,
                         size: 45,
                         padding: const [0, 0, 0, 0]),
                     SizedBox(height: 25),
-                    Text(Gradus(value: data[index][0]).asString(),
+                    Text(Gradus(value: temps[index][0]).asString(),
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,

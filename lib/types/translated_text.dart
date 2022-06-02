@@ -27,8 +27,20 @@ class Translated {
   }
 }
 
-var enRuDict = {};
-var ruEnDict = {
+Map<dynamic, dynamic> enRuDict = {
+  'Snow': 'Снег',
+  'Rain': 'Дождь',
+  'Drizzle': 'Изморось',
+  'Thunderstorm': 'Гроза',
+  'Mist': 'Туман',
+  'Smoke': 'Дым',
+  'Haze': 'Легкий туман',
+  'Dust': 'Песочный вихрь',
+  'Fog': 'Сильный туман',
+  'Clear': 'Ясно',
+  'Clouds': 'Облачно',
+};
+Map<String, String> ruEnDict = {
   'Понедельник': 'Monday',
   'Вторник': 'Tuesday',
   'Среда': 'Wednesday',

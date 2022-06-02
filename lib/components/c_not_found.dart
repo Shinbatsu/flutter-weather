@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:weather/types/translated_text.dart';
 
 class CityNotFound extends StatelessWidget {
-  String city;
-  CityNotFound(this.city, {Key? key}) : super(key: key);
+  final String city;
+  const CityNotFound(this.city, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (city.length > 18) {
-      city = city.substring(0, 15) + '...';
-    }
+    String displayed = city.length > 18 ? city.substring(0, 15) + '...' : city;
+
     return Center(
         child: Container(
       padding: EdgeInsets.all(30),
@@ -29,7 +28,7 @@ class CityNotFound extends StatelessWidget {
           SizedBox(height: 40),
           Center(
             child: Text(
-              '${Translated("Город c названием").translate()}: $city ${Translated("не найден").translate()}!',
+              '${Translated("Город c названием").translate()}: $displayed ${Translated("не найден").translate()}!',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 25),
             ),

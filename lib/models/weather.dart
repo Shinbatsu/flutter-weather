@@ -41,6 +41,8 @@ class NextWeather {
         res.add([
           obj[i]['temp']['day'],
           obj[i]['weather'][0]['description'].toLowerCase().replaceAll(' ', ''),
+          obj[i]['wind_gust'],
+          obj[i]['humidity'],
         ]);
       }
       return res;

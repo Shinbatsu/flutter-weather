@@ -26,11 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
       getCityFromStorage().then((value) {
         if (value != null) {
           city = value;
-        } else {}
+        }
       });
       sevenDays = getWeatherFromStorage();
     } else {
-      sevenDays = fetchWeatherByName(city);
+      sevenDays = fetchWeatherByName(defaultCity);
     }
   }
 
@@ -66,9 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
     Timer.periodic(Duration(seconds: 5), (Timer t) {
       syncSettings();
     });
-    Timer.periodic(Duration(minutes: 10), (Timer t) {
-      sevenDays = fetchWeatherByName(city);
-    });
+    //Timer.periodic(Duration(minutes: 10), (Timer t) {
+    //  sevenDays = fetchWeatherByName(city);
+    //});//TODO UNLOCK AT RELEASE
     SizeConfig().init(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(height: getPadding() * 6),
                   (MediaQuery.of(context).size.height > 640)
                       ? SliderDailyComponent(
-                          data: List<List<dynamic>>.generate(
+                          temps: List<List<dynamic>>.generate(
                               6, (int index) => fetched.data!.daily[index],
                               growable: true))
                       : Text('')
