@@ -13,9 +13,6 @@ class Translated {
 
   String translate() {
     int language = Settings.getValue<int>('key-lang', 0);
-    //if (text == 'Clouds') {
-    //  return 'Облачно';
-    //}
     if (language == 0) {
       if (isRussianWord(text)) {
         return text;
@@ -30,8 +27,20 @@ class Translated {
   }
 }
 
-var enRuDict = {};
-var ruEnDict = {
+Map<dynamic, dynamic> enRuDict = {
+  'Snow': 'Снег',
+  'Rain': 'Дождь',
+  'Drizzle': 'Изморось',
+  'Thunderstorm': 'Гроза',
+  'Mist': 'Туман',
+  'Smoke': 'Дым',
+  'Haze': 'Легкий туман',
+  'Dust': 'Песочный вихрь',
+  'Fog': 'Сильный туман',
+  'Clear': 'Ясно',
+  'Clouds': 'Облачно',
+};
+Map<String, String> ruEnDict = {
   'Понедельник': 'Monday',
   'Вторник': 'Tuesday',
   'Среда': 'Wednesday',
@@ -53,6 +62,11 @@ var ruEnDict = {
   'Октябрь': 'October',
   'Ноябрь': 'November',
   'Декабрь': 'December',
+  'Введите название города': 'Enter the city name',
+  'Например: Москва': 'Example: Rome',
+  'Узнать погоду!': 'Check weather!',
+  'Город c названием': 'City with name',
+  'не найден': 'not found',
   'Общие Настройки': 'Common Settings',
   'Сохранять Последнюю Сессию': 'Save Last Session',
   'Присылать Уведомления': 'Send Notifications',

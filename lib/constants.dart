@@ -21,3 +21,30 @@ const List<List<dynamic>> themes = [
   ['bg12.jpg', Color(0xFF18C29D), Color(0xFF116872), Color(0xFF041726)],
   ['bg13.jpg', Color(0xFFB94B71), Color(0xFF52091A), Color(0xFF02060F)],
 ];
+List<String> monthsRu = [
+  '',
+  'Январь',
+  'Февраль',
+  'Март',
+  'Апрель',
+  'Май',
+  'Июнь',
+  'Июль',
+  'Август',
+  'Сентябрь',
+  'Октябрь',
+  'Ноябрь',
+  'Декабрь',
+];
+List<String> weekDaysRu = [
+  '',
+  'Понедельник',
+  'Вторник',
+  'Среда',
+  'Четверг',
+  'Пятница',
+  'Суббота',
+  'Воскресенье',
+];
+const mainScreenBackgroundOpacity = 0.2;
+const extraScreenBackgroundOpacity = 0.7;

@@ -183,8 +183,8 @@ class _ChartsState extends State<Charts> {
                       barGroups: createBars().asMap().entries.map((e) {
                         final index = e.key;
                         final data = e.value;
-                        return generateBarGroup(
-                            index, Theme.of(context).primaryColor, data.value);
+                        return generateBarGroup(index,
+                            Theme.of(context).primaryColorLight, data.value);
                       }).toList(),
                       minY: getMin().toDouble() - getMin().toDouble() * 0.3,
                       maxY: getMax().toDouble() + getMax().toDouble() * 0.3,

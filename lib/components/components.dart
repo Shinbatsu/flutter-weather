@@ -17,4 +17,5 @@ export 'c_show_dialog.dart';
 export 'c_row_info_block.dart';
 export 'c_paragraph_text.dart';
 export 'c_header_text.dart';
-export 'utils/string_tools.dart';
+export 'c_modal_window.dart';
+export 'c_not_found.dart';

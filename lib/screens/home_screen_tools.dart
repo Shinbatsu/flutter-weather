@@ -1,6 +1,6 @@
-import 'package:weather/models/weather_models.dart';
+import 'package:weather/models/weather_service.dart';
 import 'package:hive/hive.dart';
-import 'package:weather/custom/weather_model.dart';
+import 'package:weather/adapters/weather_adapter.dart';
 
 Future<NextWeather> getWeatherFromStorage() async {
   var box = await Hive.openBox('Weathers');
@@ -25,7 +25,7 @@ Future<NextWeather> getWeatherFromStorage() async {
   );
 }
 
-void saveWeather(String city, NextWeather weather) async {
+void saveResponse(String city, NextWeather weather) async {
   Weather savedWeather = Weather(
     daily: weather.daily,
     hourly: weather.hourly,
@@ -49,17 +49,9 @@ void saveWeather(String city, NextWeather weather) async {
   await box.put('latestCity', city);
 }
 
-Future<String> getCityFromStorage() async {
+Future<String?> getCityFromStorage() async {
   var box = await Hive.openBox('Weathers');
   var storageCity = box.get('latestCity',defaultValue:null);
   return storageCity;
 }
 
-void syncSettings(callback) async {
-  var box = await Hive.openBox('Storage');
-  bool value = box.get('sync');
-  if (value == false) {
-    box.put('sync', true);
-    callback(() {});
-  }
-}

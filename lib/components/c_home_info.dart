@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:weather/size_config.dart';
-import 'package:weather/types/translated_text.dart';
+import 'package:weather/utils/utils.dart';
+import 'package:weather/types/types.dart';
 
 class HomeInfoComponent extends StatelessWidget {
   final String city;
-  final String temp;
-  final String tempMin;
-  final String tempMax;
-  final String weatherType;
+  final dynamic temperature;
+  final dynamic temperatureMin;
+  final dynamic temperatureMax;
+  final dynamic weatherType;
   const HomeInfoComponent({
     required this.city,
-    required this.temp,
-    required this.tempMin,
-    required this.tempMax,
+    required this.temperature,
+    required this.temperatureMin,
+    required this.temperatureMax,
     required this.weatherType,
     Key? key,
   }) : super(key: key);
@@ -28,7 +29,7 @@ class HomeInfoComponent extends StatelessWidget {
           children: [
             SizedBox(height: getAppBarPadding()),
             Text(
-              city,
+              city.toCapitalize(),
               style: TextStyle(fontSize: 40),
             ),
             SizedBox(height: getPadding()),
@@ -38,7 +39,7 @@ class HomeInfoComponent extends StatelessWidget {
             ),
             SizedBox(height: getPadding()),
             Text(
-              temp,
+              Gradus(value: temperature).asString(),
               style: TextStyle(fontSize: 50),
             ),
             SizedBox(height: getPadding()),
@@ -65,7 +66,7 @@ class HomeInfoComponent extends StatelessWidget {
                         fit: BoxFit.fill),
                     SizedBox(height: getPadding()),
                     Text(
-                      tempMax,
+                      Gradus(value: temperatureMax).asString(),
                       style: TextStyle(fontSize: 24),
                     )
                   ],
@@ -87,7 +88,7 @@ class HomeInfoComponent extends StatelessWidget {
                         fit: BoxFit.fill),
                     SizedBox(height: getPadding() * 1.5),
                     Text(
-                      tempMin,
+                      Gradus(value: temperatureMin).asString(),
                       style: TextStyle(fontSize: 24),
                     )
                   ],

@@ -93,11 +93,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         child: Column(
                           children: [
                             SwitchSettingsTile(
-                              title:
-                                  Translated('Сохранять Последнюю Сессию').translate(),
-                              settingKey: "key-save_history",
-                              onChange: (value) => showModal(),
-                            ),
+                                title: Translated('Сохранять Последнюю Сессию')
+                                    .translate(),
+                                settingKey: "key-save_history",
+                                onChange: (value) => showModal(),
+                                defaultValue: true),
                             SwitchSettingsTile(
                               title: Translated('Присылать Уведомления')
                                   .translate(),
