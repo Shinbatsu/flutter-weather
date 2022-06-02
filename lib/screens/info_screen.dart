@@ -123,6 +123,11 @@ class _InfoScreenState extends State<InfoScreen> {
                           ),
                         ],
                       )),
+                  createTempChartBlock(
+                      data: fetched.data!.hourlyTemp
+                          .map((value) =>
+                              Gradus(value: value).asDouble().toInt())
+                          .toList()),
                   InfoBlockComponent(
                       header: [
                         'sun.svg',
@@ -142,7 +147,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                   DateTime.fromMillisecondsSinceEpoch(
                                           fetched.data!.sunrise)
                                       .subtract(
-                                          Duration(hours: 4, minutes: 19)))),
+                                          Duration(hours: 5, minutes: 37)))),
                             ],
                           ),
                           SizedBox(height: getPaddingX2()),
@@ -162,11 +167,6 @@ class _InfoScreenState extends State<InfoScreen> {
                       )),
                   createRowInfoBlock(
                       data: [fetched.data!.windSpeed, fetched.data!.windDeg]),
-                  createTempChartBlock(
-                      data: fetched.data!.hourlyTemp
-                          .map((value) =>
-                              Gradus(value: value).asDouble().toInt())
-                          .toList()),
                   createHumidityChartBlock(
                       data: fetched.data!.hourlyHumidity
                           .map((value) =>
