@@ -89,7 +89,7 @@ class AboutScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(bottom: 20, left: 20),
               child: ParagraphText(
-                'Version: 1.1.12',
+                'Version: 1.0.7',
               ),
             ),
           ],

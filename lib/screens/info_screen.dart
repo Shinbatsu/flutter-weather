@@ -170,6 +170,7 @@ class _InfoScreenState extends State<InfoScreen> {
                               )
                             ],
                           ),
+                          SizedBox(height: 70)
                         ],
                       )),
                 ];

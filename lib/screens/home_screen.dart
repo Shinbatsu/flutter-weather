@@ -6,6 +6,7 @@ import 'dart:async';
 import 'home_screen_tools.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:hive/hive.dart';
+import 'package:flutter/services.dart';
 
 class HomeScreen extends StatefulWidget {
   final String appBackground;
@@ -19,16 +20,19 @@ class _HomeScreenState extends State<HomeScreen> {
   late Future<NextWeather?> sevenDays;
   late String city;
   String defaultCity = 'Korolyov';
+
   void initData() {
     city = defaultCity;
-    bool loadLastSession = Settings.getValue<bool>('key-save_history', true);
+    bool loadLastSession = Settings.getValue<bool>('key-save_history', false);
     if (loadLastSession) {
       getCityFromStorage().then((value) {
         if (value != null) {
           city = value;
+          sevenDays = getWeatherFromStorage();
+        } else {
+          sevenDays = fetchWeatherByName(city);
         }
       });
-      sevenDays = getWeatherFromStorage();
     } else {
       sevenDays = fetchWeatherByName(defaultCity);
     }
@@ -70,6 +74,9 @@ class _HomeScreenState extends State<HomeScreen> {
       sevenDays = fetchWeatherByName(city);
     });
     SizeConfig().init(context);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
