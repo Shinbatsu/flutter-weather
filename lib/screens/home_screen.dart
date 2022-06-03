@@ -66,9 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
     Timer.periodic(Duration(seconds: 5), (Timer t) {
       syncSettings();
     });
-    //Timer.periodic(Duration(minutes: 10), (Timer t) {
-    //  sevenDays = fetchWeatherByName(city);
-    //});//TODO UNLOCK AT RELEASE
+    Timer.periodic(Duration(minutes: 30), (Timer t) {
+      sevenDays = fetchWeatherByName(city);
+    });
     SizeConfig().init(context);
     return Scaffold(
       extendBodyBehindAppBar: true,

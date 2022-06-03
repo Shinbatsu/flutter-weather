@@ -34,7 +34,3 @@ class City {
     }
   }
 }
-
-void main() {
-  print(City('Королёв').translate());
-}
