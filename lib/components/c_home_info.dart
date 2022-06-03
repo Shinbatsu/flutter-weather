@@ -23,13 +23,14 @@ class HomeInfoComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     DateTime date = DateTime.now().toUtc().toLocal();
+    print(City(city).translate() + 'dasdsa');
     return Container(
         alignment: Alignment.center,
         child: Column(
           children: [
             SizedBox(height: getAppBarPadding()),
             Text(
-              city.toCapitalize(),
+              City(city).translate().toCapitalize(),
               style: TextStyle(fontSize: 40),
             ),
             SizedBox(height: getPadding()),

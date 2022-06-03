@@ -25,6 +25,7 @@ dependencies:
     hive_generator: ^1.1.3
     flutter_dotenv: ^5.0.2
     geolocator: ^8.2.1
+    translit: ^2.0.0
 
 dev_dependencies:
     flutter_test:

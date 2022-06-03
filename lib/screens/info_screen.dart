@@ -88,45 +88,15 @@ class _InfoScreenState extends State<InfoScreen> {
             builder: (context, AsyncSnapshot fetched) {
               if (fetched.hasData) {
                 List<InfoBlockComponent> infoBlocks = [
-                  InfoBlockComponent(
-                      header: [
-                        'map-marker.svg',
-                        Translated('Расположение').translate()
-                      ],
-                      body: Column(
-                        children: [
-                          SizedBox(height: getPadding()),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              ParagraphText(
-                                '${Translated("Широта").translate()}:',
-                              ),
-                              SizedBox(height: getPadding()),
-                              ParagraphText(
-                                fetched.data!.lat.toString(),
-                              )
-                            ],
-                          ),
-                          SizedBox(height: getPaddingX2()),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              ParagraphText(
-                                '${Translated("Долгота").translate()}:',
-                              ),
-                              SizedBox(height: getPadding()),
-                              ParagraphText(
-                                fetched.data!.lon.toString(),
-                              )
-                            ],
-                          ),
-                        ],
-                      )),
                   createTempChartBlock(
                       data: fetched.data!.hourlyTemp
                           .map((value) =>
                               Gradus(value: value).asDouble().toInt())
+                          .toList()),
+                  createHumidityChartBlock(
+                      data: fetched.data!.hourlyHumidity
+                          .map((value) =>
+                              Humidity(value: value).asDouble().toInt())
                           .toList()),
                   InfoBlockComponent(
                       header: [
@@ -167,11 +137,41 @@ class _InfoScreenState extends State<InfoScreen> {
                       )),
                   createRowInfoBlock(
                       data: [fetched.data!.windSpeed, fetched.data!.windDeg]),
-                  createHumidityChartBlock(
-                      data: fetched.data!.hourlyHumidity
-                          .map((value) =>
-                              Humidity(value: value).asDouble().toInt())
-                          .toList()),
+                  InfoBlockComponent(
+                      header: [
+                        'map-marker.svg',
+                        Translated('Расположение').translate()
+                      ],
+                      body: Column(
+                        children: [
+                          SizedBox(height: getPadding()),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ParagraphText(
+                                '${Translated("Широта").translate()}:',
+                              ),
+                              SizedBox(height: getPadding()),
+                              ParagraphText(
+                                fetched.data!.lat.toString(),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: getPaddingX2()),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ParagraphText(
+                                '${Translated("Долгота").translate()}:',
+                              ),
+                              SizedBox(height: getPadding()),
+                              ParagraphText(
+                                fetched.data!.lon.toString(),
+                              )
+                            ],
+                          ),
+                        ],
+                      )),
                 ];
                 return ListView.separated(
                     physics: BouncingScrollPhysics(),

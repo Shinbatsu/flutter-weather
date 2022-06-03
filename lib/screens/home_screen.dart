@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late Future<NextWeather?> sevenDays;
   late String city;
-  String defaultCity = 'Королёв';
+  String defaultCity = 'Korolyov';
   void initData() {
     city = defaultCity;
     bool loadLastSession = Settings.getValue<bool>('key-save_history', true);

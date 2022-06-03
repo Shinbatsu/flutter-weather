@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'weather.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:weather/types/city.dart';
 
 final String? coordLink = dotenv.env['COORDLINK'];
 final String? weatherLink = dotenv.env['WEATHERLINK'];
@@ -21,6 +22,7 @@ Future<NextWeather> fetchWeatherByCoords(
 }
 
 Future<NextWeather> fetchWeatherByName(String city) async {
+  city = City(city).englify();
   dynamic response =
       await http.get(Uri.parse('${coordLink}appid=$appid&q=' + city));
   if (response.statusCode == 200) {
