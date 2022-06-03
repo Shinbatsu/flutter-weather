@@ -73,6 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
     Timer.periodic(Duration(minutes: 30), (Timer t) {
       sevenDays = fetchWeatherByName(city);
     });
+    //Timer.periodic(Duration(minutes: 10), (Timer t) {
+    //  sevenDays = fetchWeatherByName(city);
+    //});//TODO UNLOCK AT RELEASE
     SizeConfig().init(context);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
