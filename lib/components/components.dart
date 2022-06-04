@@ -19,3 +19,4 @@ export 'c_paragraph_text.dart';
 export 'c_header_text.dart';
 export 'c_modal_window.dart';
 export 'c_not_found.dart';
+export 'c_offline_mode_dialog.dart';

@@ -3,6 +3,7 @@ import 'routes.dart';
 import 'main_prep.dart';
 import 'adapters/weather_adapter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     return MaterialApp(
       title: 'Weather',
       theme: themeData,
@@ -29,29 +33,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-List<String> monthsRu = [
-  '',
-  'Январь',
-  'Февраль',
-  'Март',
-  'Апрель',
-  'Май',
-  'Июнь',
-  'Июль',
-  'Август',
-  'Сентябрь',
-  'Октябрь',
-  'Ноябрь',
-  'Декабрь',
-];
-List<String> weekDaysRu = [
-  '',
-  'Понедельник',
-  'Вторник',
-  'Среда',
-  'Четверг',
-  'Пятница',
-  'Суббота',
-  'Воскресенье',
-];

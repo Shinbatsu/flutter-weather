@@ -3,7 +3,7 @@ import 'package:weather/components/components.dart';
 import 'package:weather/size_config.dart';
 import '../components/components.dart';
 import 'package:weather/types/types.dart';
-import 'package:intl/intl.dart';
+import 'package:weather/utils/utils.dart';
 import 'package:weather/models/weather_service.dart';
 
 class InfoScreen extends StatefulWidget {
@@ -28,13 +28,13 @@ class _InfoScreenState extends State<InfoScreen> {
     return InfoBlockComponent(header: [
       'thermometer-snowflake.svg',
       Translated('Температура').translate()
-    ], body: Charts(data: data));
+    ], body: Charts(data: data, unit: '°', startTime: DateTime.now().hour));
   }
 
   InfoBlockComponent createHumidityChartBlock({required List<dynamic> data}) {
     return InfoBlockComponent(
         header: ['droplet.svg', Translated('Влажность').translate()],
-        body: Charts(data: data, unit: '%'));
+        body: Charts(data: data, unit: '%', startTime: DateTime.now().hour));
   }
 
   InfoBlockComponent createRowInfoBlock({required List<num> data}) {
@@ -113,11 +113,8 @@ class _InfoScreenState extends State<InfoScreen> {
                                 '${Translated("Закат").translate()}:',
                               ),
                               SizedBox(height: getPadding()),
-                              ParagraphText(DateFormat('HH:mm').format(
-                                  DateTime.fromMillisecondsSinceEpoch(
-                                          fetched.data!.sunrise)
-                                      .subtract(
-                                          Duration(hours: 5, minutes: 37)))),
+                              ParagraphText(
+                                  fromTimestamp(fetched.data!.sunrise)),
                             ],
                           ),
                           SizedBox(height: getPaddingX2()),
@@ -128,9 +125,8 @@ class _InfoScreenState extends State<InfoScreen> {
                                 '${Translated("Восход").translate()}:',
                               ),
                               SizedBox(height: getPadding()),
-                              ParagraphText(DateFormat('HH:mm').format(
-                                  DateTime.fromMillisecondsSinceEpoch(
-                                      fetched.data!.sunset))),
+                              ParagraphText(
+                                  fromTimestamp(fetched.data!.sunset)),
                             ],
                           ),
                         ],

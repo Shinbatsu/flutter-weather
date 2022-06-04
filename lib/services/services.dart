@@ -1,2 +1,2 @@
 export 'notifyer.dart';
-export 'geo.dart';
+//export 'geo.dart';

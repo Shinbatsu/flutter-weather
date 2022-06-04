@@ -6,7 +6,7 @@ import 'dart:async';
 import 'home_screen_tools.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:hive/hive.dart';
-import 'package:flutter/services.dart';
+import 'package:weather/utils/check_connection.dart';
 
 class HomeScreen extends StatefulWidget {
   final String appBackground;
@@ -19,11 +19,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late Future<NextWeather?> sevenDays;
   late String city;
-  String defaultCity = 'Korolyov';
+  String defaultCity = 'Королёв';
 
   void initData() {
     city = defaultCity;
-    bool loadLastSession = Settings.getValue<bool>('key-save_history', false);
+    bool loadLastSession = Settings.getValue<bool>('key-save-history', false);
     if (loadLastSession) {
       getCityFromStorage().then((value) {
         if (value != null) {
@@ -45,6 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void sendRequest() async {
+    if (!await hasConnection()) {
+      showOfflineModeException(context);
+    }
     String? res = await openDialog(context: context);
     if (res == null || res.length < 4) {
       return;
@@ -70,16 +73,11 @@ class _HomeScreenState extends State<HomeScreen> {
     Timer.periodic(Duration(seconds: 5), (Timer t) {
       syncSettings();
     });
-    Timer.periodic(Duration(minutes: 30), (Timer t) {
-      sevenDays = fetchWeatherByName(city);
-    });
-    //Timer.periodic(Duration(minutes: 10), (Timer t) {
+    //Timer.periodic(Duration(minutes: 30), (Timer t) {
     //  sevenDays = fetchWeatherByName(city);
-    //});//TODO UNLOCK AT RELEASE
+    //});
     SizeConfig().init(context);
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,

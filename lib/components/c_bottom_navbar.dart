@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/components/components.dart';
-import 'package:weather/types/translated_text.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:weather/utils/check_connection.dart';
 
 class BottomBar extends StatelessWidget {
   final dynamic weather;
@@ -9,41 +8,6 @@ class BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void showOfflineModeException() {
-      showModalBottomSheet<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-            height: 200,
-            color: Theme.of(context).primaryColor,
-            child: Container(
-              padding: EdgeInsets.all(30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(Translated('Предупреждение').translate(),
-                      style: TextStyle(fontFamily: 'Roboto')),
-                  Text(
-                      '${Translated("Недоступно в Offline режиме").translate()}!',
-                      style: TextStyle(fontFamily: 'Roboto')),
-                  TextButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context).primaryColorLight)),
-                    child: Text(Translated('Закрыть').translate(),
-                        style: TextStyle(
-                            color: Colors.white, fontFamily: 'Roboto')),
-                    onPressed: () => Navigator.pop(context),
-                  )
-                ],
-              ),
-            ),
-          );
-        },
-      );
-    }
-
     return Container(
       padding: EdgeInsets.all(30),
       height: 130,
@@ -53,9 +17,8 @@ class BottomBar extends StatelessWidget {
           IconButton(
             icon: IconComponent('info.svg', size: 35),
             onPressed: () async {
-              if (await Connectivity().checkConnectivity() ==
-                  ConnectivityResult.none) {
-                showOfflineModeException();
+              if (!await hasConnection()) {
+                showOfflineModeException(context);
               } else {
                 Navigator.pushNamed(context, '/info',
                     arguments: <String, dynamic>{

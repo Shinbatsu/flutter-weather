@@ -2,10 +2,7 @@
     package="com.example.weather">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<<<<<<< HEAD
     <uses-permission android:name="android.permission.INTERNET"/>
-=======
->>>>>>> 6fbfdc4f826598748d1089b288250495e4da78c8
    <application
         android:label="Tenki"
         android:name="${applicationName}"

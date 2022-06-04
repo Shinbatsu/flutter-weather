@@ -11,7 +11,12 @@ class _BarData {
 class Charts extends StatefulWidget {
   final List<dynamic> data;
   final String unit;
-  const Charts({Key? key, this.unit = '°', required this.data})
+  final int startTime;
+  const Charts(
+      {Key? key,
+      required this.unit,
+      required this.data,
+      required this.startTime})
       : super(key: key);
   @override
   State<Charts> createState() => _ChartsState();
@@ -93,7 +98,7 @@ class _ChartsState extends State<Charts> {
                               return Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
                                 child: Text(
-                                    ((index + DateTime.now().hour + 3) % 24)
+                                    ((index + widget.startTime) % 24)
                                             .toString() +
                                         ':00',
                                     style: TextStyle(color: Colors.white)),

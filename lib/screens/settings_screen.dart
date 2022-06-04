@@ -95,9 +95,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             SwitchSettingsTile(
                                 title: Translated('Сохранять Последнюю Сессию')
                                     .translate(),
-                                settingKey: "key-save_history",
+                                settingKey: "key-save-history",
                                 onChange: (value) => showModal(),
-                                defaultValue: false,),
+                                defaultValue: false),
                             SwitchSettingsTile(
                               title: Translated('Присылать Уведомления')
                                   .translate(),
