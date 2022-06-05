@@ -26,6 +26,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool isShowModal = true;
   void showModal() {
     makeChange();
+    setState(() {});
     if (isShowModal) {
       setState(() {
         isShowModal = false;

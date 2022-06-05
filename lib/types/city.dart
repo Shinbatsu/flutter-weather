@@ -25,6 +25,9 @@ class City {
       if (isRussianWord(text)) {
         return text;
       }
+      if (text == 'Moscow' || text == 'moscow') {
+        return 'Москва';
+      }
       return Translit().unTranslit(source: text);
     } else {
       if (isEnglishWord(text)) {

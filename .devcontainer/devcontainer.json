@@ -4,9 +4,7 @@
     "dockerFile": "../Dockerfile",
     "remoteUser": "shinbatsu",
     "mounts": ["source=/dev/bus/usb,target=/dev/bus/usb,type=bind"],
-    "settings": {
-      "terminal.integrated.shell.linux": null
-    },
+    "settings": {},
     "runArgs": ["--privileged"],
     "extensions": ["dart-code.flutter"],
     "workspaceMount": "source=${localWorkspaceFolder}/workspace,target=/home/developer/workspace,type=bind,consistency=delegated",

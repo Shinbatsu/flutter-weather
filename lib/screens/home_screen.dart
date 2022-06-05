@@ -23,19 +23,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void initData() {
     city = defaultCity;
-    bool loadLastSession = Settings.getValue<bool>('key-save-history', false);
-    if (loadLastSession) {
+    sevenDays = fetchWeatherByName(city);
+    bool? loadLastSession = Settings.getValue<bool>('key-save-history', false);
+    if (loadLastSession != null && loadLastSession) {
       getCityFromStorage().then((value) {
-        if (value != null) {
-          city = value;
-          sevenDays = getWeatherFromStorage();
-        } else {
-          sevenDays = fetchWeatherByName(city);
-        }
+        city = value;
+        sevenDays = getWeatherFromStorage();
+        setState(() {});
       });
-    } else {
-      sevenDays = fetchWeatherByName(defaultCity);
     }
+    setState(() {});
   }
 
   @override
@@ -46,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void sendRequest() async {
     if (!await hasConnection()) {
-      print(!await hasConnection());
       showOfflineModeException(context);
       return;
     }
@@ -75,9 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
     Timer.periodic(Duration(seconds: 5), (Timer t) {
       syncSettings();
     });
-    //Timer.periodic(Duration(minutes: 30), (Timer t) {
-    //  sevenDays = fetchWeatherByName(city);
-    //});
+    Timer.periodic(Duration(minutes: 30), (Timer t) {
+      sevenDays = fetchWeatherByName(city);
+      setState(() {});
+    });
     SizeConfig().init(context);
 
     return Scaffold(
@@ -117,7 +114,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       : Text('')
                 ]);
               } else if (fetched.hasError) {
-                return CityNotFound(city);
+                Future.delayed(Duration(seconds: 4)).then((_) {
+                  return CityNotFound(city);
+                });
               }
               return const CircularProgressIndicator();
             },

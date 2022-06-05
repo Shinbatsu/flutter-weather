@@ -49,9 +49,8 @@ void saveResponse(String city, NextWeather weather) async {
   await box.put('latestCity', city);
 }
 
-Future<String?> getCityFromStorage() async {
+Future<String> getCityFromStorage() async {
   var box = await Hive.openBox('Weathers');
-  var storageCity = box.get('latestCity',defaultValue:null);
+  String storageCity = box.get('latestCity', defaultValue: 'Korolyov');
   return storageCity;
 }
-
