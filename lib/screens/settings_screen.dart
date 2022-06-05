@@ -124,7 +124,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             0: '${Translated("Градус Фаренгейта").translate()} (°F)',
                             1: '${Translated("Градус Цельсия").translate()} (°C)',
                           },
-                          selected: 0,
+                          selected: 1,
                           onChange: (value) => showModal(),
                         ),
                       )

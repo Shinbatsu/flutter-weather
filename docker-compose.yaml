@@ -1,0 +1,13 @@
+version: '3.1'
+services:
+  webapp:
+    container_name: flutter-weather
+    restart: always
+    image: myprog
+    ports:
+      - 5001:5001 
+    build:
+      context: ./
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: ["flutter", "pub", "global", "run", "webdev", "serve", "0.0.0.0:5001"]

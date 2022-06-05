@@ -46,7 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void sendRequest() async {
     if (!await hasConnection()) {
+      print(!await hasConnection());
       showOfflineModeException(context);
+      return;
     }
     String? res = await openDialog(context: context);
     if (res == null || res.length < 4) {
