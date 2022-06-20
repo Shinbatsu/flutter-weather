@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// Класс адаптивного масштабирования виджетов
 class SizeConfig {
+  /// Ассинхронное объявление запроса на размеры устройства
   static late MediaQueryData _mediaQueryData;
   static late double screenWidth;
   static late double screenHeight;
@@ -15,40 +17,46 @@ class SizeConfig {
   }
 }
 
-// Get the proportionate height as per screen size
+/// Функция адаптивного расчета высоты на основе
+/// макетной высоты в дизайне [780px].
 double getProportionateScreenHeight(double inputHeight) {
   double screenHeight = SizeConfig.screenHeight;
-  // 812 is the layout height that designer use
   return (inputHeight / 780.0) * screenHeight;
 }
 
-// Get the proportionate height as per screen size
+/// Функция адаптивного расчета Ширины на основе
+/// макетной ширины в дизайне [320px].
 double getProportionateScreenWidth(double inputWidth) {
   double screenWidth = SizeConfig.screenWidth;
-  // 375 is the layout width that designer use
   return (inputWidth / 320.0) * screenWidth;
 }
 
+/// Стандартный Padding, нужен для стандартизации отступов.
 double getPadding() {
   return 10;
 }
 
+/// Двойной Padding, нужен для стандартизации отступов.
 double getPaddingX2() {
   return 20;
 }
 
+/// Размер в пикселах, шрифт текста.
 double getParagraph() {
   return 16;
 }
 
+/// Размер в пикселах, шрифт заголовков текста.
 double getHeader() {
   return 20;
 }
 
+/// Размер в пикселах, отступ для AppBar
 double getAppBarPadding() {
   return 80;
 }
 
+/// Размер в пикселах, размер иконки.
 double getAppIconSize() {
   return 20;
 }

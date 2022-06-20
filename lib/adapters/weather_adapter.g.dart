@@ -5,13 +5,18 @@ part of 'weather_adapter.dart';
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
-
+/// Этот класс является кодогенерацией, все что он делает это переводит
+/// данные из простых типов, например строк и чисел, в набор бинарных данных
+/// для хранения в базе данных, он наследуется от абстракции "Пользовательских
+/// тип данных" из базы данных [Hive].
 class WeatherAdapter extends TypeAdapter<Weather> {
   @override
   final int typeId = 4;
 
   @override
   Weather read(BinaryReader reader) {
+    /// Ниже содержится инициализация полей объекта
+    /// они дальше будет переведены в бинарный вид.
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
@@ -42,6 +47,8 @@ class WeatherAdapter extends TypeAdapter<Weather> {
 
   @override
   void write(BinaryWriter writer, Weather obj) {
+    /// Ниже содержится поток вызовов бинарных обработчиков для записи
+    /// данных в базу [Hive].
     writer
       ..writeByte(16)
       ..writeByte(0)
@@ -81,6 +88,7 @@ class WeatherAdapter extends TypeAdapter<Weather> {
   @override
   int get hashCode => typeId.hashCode;
 
+  /// Служедная функция созданная програмно для контроля данных в базе
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

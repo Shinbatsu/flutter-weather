@@ -1,10 +1,9 @@
 import 'package:hive/hive.dart';
 
 part 'weather_adapter.g.dart';
- 
- @HiveType(typeId: 4)
-class Weather {
 
+@HiveType(typeId: 4)
+class Weather {
   @HiveField(0)
   final List<List<dynamic>> daily;
 

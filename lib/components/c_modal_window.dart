@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:weather/types/translated_text.dart';
 import 'package:hive/hive.dart';
 
+/// Сохраняем факт изменения значей в базу данных
 void makeChange() async {
   var box = await Hive.openBox('Storage');
   box.put('sync', false);
 }
 
+/// Функция вызова модального окна
 void showModal(BuildContext ctx) {
+  /// В случае изменений которые привели к вызову,
+  /// мы фиксируем их а Базе данных настроек.
   makeChange();
+
+  /// Отрисовываем Модальное окно с предупреждением
   showModalBottomSheet<void>(
+    /// передаем контекст чтобы окно отрисовалось там где нужно.
     context: ctx,
     builder: (BuildContext context) {
       return Container(

@@ -12,9 +12,15 @@ class AppBarComponent extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+
+    /// Функция показывающая открытие диалога с погодой.
     Future openDialog() => showDialog(
+          /// Cтиль обводки.
           barrierColor: Colors.white.withOpacity(0),
           context: context,
+
+          /// Отображение диалога на основе состояния системы.
+          /// По умолчанию запускается классический диалог.
           builder: (context) => AlertDialog(
               shape: RoundedRectangleBorder(
                   borderRadius:
@@ -24,6 +30,8 @@ class AppBarComponent extends StatelessWidget with PreferredSizeWidget {
                 'Please enter a city!',
                 style: TextStyle(color: Colors.white),
               ),
+
+              /// Текстовое поле для ввода города.
               content: TextField(
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
@@ -33,6 +41,7 @@ class AppBarComponent extends StatelessWidget with PreferredSizeWidget {
                   hintStyle: TextStyle(color: Colors.grey),
                 ),
               ),
+              /// Центральная кнопка для выполнения запроса погоды.
               actions: [
                 TextButton(
                     child: Text(
@@ -45,8 +54,10 @@ class AppBarComponent extends StatelessWidget with PreferredSizeWidget {
     return PreferredSize(
       preferredSize: Size.fromHeight(getProportionateScreenHeight(200)),
       child: AppBar(
+        /// Тип отображения статуса выполнения.
         systemOverlayStyle:
             SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+        /// Убираем тень от всплывающего окна.
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButtonComponent('search.svg', onPressed: () {

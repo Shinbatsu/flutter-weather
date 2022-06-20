@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:weather/size_config.dart';
-import 'package:weather/utils/utils.dart';
 import 'package:weather/types/types.dart';
 
 class HomeInfoComponent extends StatelessWidget {
@@ -28,10 +27,26 @@ class HomeInfoComponent extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: getAppBarPadding()),
-            Text(
-              City(city).translate().toCapitalize(),
-              style: TextStyle(fontSize: 40),
+            FutureBuilder<String>(
+              future: City(city).translate(),
+              builder: (context, fetched) {
+                if (fetched.hasData) {
+                  return Text(
+                    fetched.data!.toUpperCase(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 40),
+                  );
+                }
+                return Text(
+                  'Loading...',
+                  style: TextStyle(fontSize: 40),
+                );
+              },
             ),
+            //Text(
+            //  City(city).translate(),
+            //  style: TextStyle(fontSize: 40),
+            //),
             SizedBox(height: getPadding()),
             Text(
               date.day.toString() + ", " + date.year.toString(),

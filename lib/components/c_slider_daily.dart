@@ -24,15 +24,30 @@ class SliderDailyComponent extends StatelessWidget {
         6, (int index) => (DateTime.now().add(Duration(days: index)).day),
         growable: true);
 
+    /// Инициализация Адаптивного свойства для этого виджета.
     SizeConfig().init(context);
+
+    /// Поведенческий компонент, расширяется на основе
+    /// размеров внутренних виджетов
     return Expanded(
+
+        /// Передаем разделяемый горизонтальный список.
         child: ListView.separated(
+      /// Симметричные отступы с каждой стороны.
       padding: EdgeInsets.symmetric(
           horizontal: getProportionateScreenWidth(getPadding())),
+
+      /// Эффект инерции во время прокрутки.
       physics: BouncingScrollPhysics(),
+
+      /// Эффект инерции во время прокрутки.
       scrollDirection: Axis.horizontal,
+
+      /// Добавление логики отображения для разделителя.
       separatorBuilder: (context, index) => VerticalDivider(
         color: Colors.transparent,
+
+        /// Адаптивные отступы для ширины.
         width: getProportionateScreenWidth(getPadding()),
       ),
       itemCount: temps.length,
@@ -43,11 +58,16 @@ class SliderDailyComponent extends StatelessWidget {
               getWeekDay(now.weekday, index),
             ),
             SizedBox(
+              /// Пророрциональное отображение карточки,за
+              /// это отвечает [Size Config].
               width: getProportionateScreenWidth(100),
               height: getProportionateScreenWidth(150),
               child: Card(
                 color: Colors.black.withOpacity(0.2),
+
+                /// Указание на форму со скруглениями
                 shape: RoundedRectangleBorder(
+                  /// Скругление отступов у карточки.
                   borderRadius: BorderRadius.circular(getPaddingX2()),
                 ),
                 child: Column(

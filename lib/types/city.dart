@@ -1,5 +1,5 @@
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
-import 'package:translit/translit.dart';
+import 'package:translator/translator.dart';
 
 class City {
   final String text;
@@ -13,27 +13,41 @@ class City {
   }
 
   String englify() {
-    if (isRussianWord(text)) {
-      return Translit().toTranslit(source: text);
+    final translator = GoogleTranslator();
+    String res = text;
+    try {
+      translator.translate(text, to: 'en').then((value) {
+        res = value.text;
+      });
+    } finally {
+      return res;
     }
-    return text;
+    //if (isRussianWord(text)) {
+    //  translator.translate(text, to: 'en').then((value) {
+    //    return value;
+    //  });
+    //return Translit().toTranslit(source: text);
+    //return text;
   }
 
-  String translate() {
+  Future<String> translate() async {
     int language = Settings.getValue<int>('key-lang', 0);
-    if (language == 0) {
-      if (isRussianWord(text)) {
-        return text;
+    String res = text;
+    final translator = GoogleTranslator();
+    try {
+      if (language == 0) {
+        await translator.translate(text, to: 'ru').then((value) {
+          res = value.text;
+        });
+      } else {
+        await translator.translate(text, to: 'en').then((value) {
+          res = value.text;
+        });
       }
-      if (text == 'Moscow' || text == 'moscow') {
-        return 'Москва';
-      }
-      return Translit().unTranslit(source: text);
-    } else {
-      if (isEnglishWord(text)) {
-        return text;
-      }
-      return Translit().toTranslit(source: text);
+    } catch (e) {
+      return text;
+    } finally {
+      return res;
     }
   }
 }

@@ -7,16 +7,20 @@ import 'package:weather/utils/utils.dart';
 import 'package:weather/models/weather_service.dart';
 
 class InfoScreen extends StatefulWidget {
+  /// Начальные поля виджета с дополнительной информацией.
   final String appBackground;
   final Future<NextWeather>? weather;
   const InfoScreen({required this.appBackground, this.weather, Key? key})
       : super(key: key);
 
+  /// Синтаксис для указания на состояние.Так принято писать.
   @override
   State<InfoScreen> createState() => _InfoScreenState();
 }
 
 class _InfoScreenState extends State<InfoScreen> {
+  /// Указываем что в этом объекте позже появится информация о погоде,
+  ///  Она будет записана в поле ниже.
   late Future<NextWeather>? weather;
 
   @override
@@ -24,6 +28,7 @@ class _InfoScreenState extends State<InfoScreen> {
     super.initState();
   }
 
+  /// Функция создания графика температур.
   InfoBlockComponent createTempChartBlock({required List<dynamic> data}) {
     return InfoBlockComponent(header: [
       'thermometer-snowflake.svg',
@@ -31,12 +36,14 @@ class _InfoScreenState extends State<InfoScreen> {
     ], body: Charts(data: data, unit: '°', startTime: DateTime.now().hour));
   }
 
+  /// Функция создания графика влажности.
   InfoBlockComponent createHumidityChartBlock({required List<dynamic> data}) {
     return InfoBlockComponent(
         header: ['droplet.svg', Translated('Влажность').translate()],
         body: Charts(data: data, unit: '%', startTime: DateTime.now().hour));
   }
 
+  /// Создаем блоки с другой информацией Ветер, Солнце, Координаты
   InfoBlockComponent createRowInfoBlock({required List<num> data}) {
     return InfoBlockComponent(
         header: ['wind.svg', Translated('Ветер').translate()],
@@ -63,8 +70,11 @@ class _InfoScreenState extends State<InfoScreen> {
             )));
   }
 
+  /// Монтируем главный виджет и определяем ниже всю логику
+  /// что и как отображать, а что пользователь не увидит.
   @override
   Widget build(BuildContext context) {
+    /// Подгружаем новые данные о погоде которые пришли на главный экран.
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
     SizeConfig().init(context);
@@ -74,15 +84,20 @@ class _InfoScreenState extends State<InfoScreen> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
+
+      /// Отключаем влияние размеров навигации на фон.
       extendBody: true,
       appBar: ExtraAppBarComponent(),
       body: Stack(
         children: [
+          ///Размытие фона
           FullBackgroundComponent(
             widget.appBackground,
             withBlur: true,
           ),
           DarkerBackgroundComponent(0.7),
+
+          /// Ассинхронный виджет с инофрмацией о погоде.
           FutureBuilder<NextWeather>(
             future: weather,
             builder: (context, AsyncSnapshot fetched) {
@@ -170,6 +185,11 @@ class _InfoScreenState extends State<InfoScreen> {
                         ],
                       )),
                 ];
+
+                /// Результатом отображения является разделенный список блоков
+                /// с информацией о погоде и прочем.
+                /// На основе состояние ассинхронных данных мы определяем
+                /// что увидит пользователь (предупреждение или информацию).
                 return ListView.separated(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
